@@ -3,8 +3,8 @@
 
 
 # Force * Distance (Work Done)
-[x] Create a handler for the PS3 bluetooth controller
-[ ] Stream video from the raspberry pi to a web interface
+- [x] Create a handler for the PS3 bluetooth controller
+- [ ] Stream video from the raspberry pi to a web interface
 
 
 ## Contribution
