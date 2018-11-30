@@ -32,5 +32,5 @@ class CarPiCamera(AbstractCarPartHandler):
             if not self.on:break
 
     def run_threaded(self,*args, **kwargs):
-        rerturn self.frame
+        return self.frame
 
