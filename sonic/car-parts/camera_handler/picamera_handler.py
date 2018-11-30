@@ -17,13 +17,20 @@ class CarPiCamera(AbstractCarPartHandler):
         time.sleep(2)
 
     def run(self,*args, **kwargs):
-        pass
+        f=next(self.stream)
+        frame=f.array
+        self.raw_cap.truncate(0)
+        return frame
  
     def start(self,*args, **kwargs):
         pass
 
     def update(self,*args, **kwargs):
-        pass
+        for f in self.stream:
+            self.frame=f.array
+            self.raw_cap.truncate(0)
+            if not self.on:break
 
     def run_threaded(self,*args, **kwargs):
-        pass
+        rerturn self.frame
+
