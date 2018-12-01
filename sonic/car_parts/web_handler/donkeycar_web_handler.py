@@ -1,6 +1,5 @@
 import random
-
-
+import asyncio
 import os
 import time
 
@@ -77,6 +76,7 @@ class LocalWebController(tornado.web.Application):
     def update(self):
         """ Start the tornado web server. """
         self.port = int(self.port)
+        asyncio.set_event_loop(asyncio.new_event_loop())
         self.listen(self.port)
         instance = tornado.ioloop.IOLoop.instance()
         instance.add_callback(self.say_hello)
@@ -89,6 +89,8 @@ class LocalWebController(tornado.web.Application):
     def run(self, img_arr=None):
         return self.run_threaded(img_arr)
 
+    def shutdown(self):
+        return 
 
 class DriveAPI(tornado.web.RequestHandler):
     def get(self):
