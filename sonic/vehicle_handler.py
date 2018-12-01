@@ -1,10 +1,8 @@
 import abc
-import sys
 from threading import Thread
 from sonic.log_handler import LogHandler
 
-log_handler = LogHandler()
-log_handler.create_logger(__name__)
+logger = LogHandler().get_logger(__name__)
 
 class AbstractVehicleHandler(abc.ABC):
 
@@ -34,7 +32,7 @@ class VehicleHandler(AbstractVehicleHandler):
             self.on=True
             self.parts=[]
         except Exception as e:
-            log_handler.logError(sys.exc_info(), e)
+            logger.exception(e)
 
     def add(self,part,inputs=[],outputs=[],threaded=False,run_condition=False,*args, **kwargs):
         """
@@ -63,22 +61,40 @@ class VehicleHandler(AbstractVehicleHandler):
                 e["thread"]=t
             self.parts.append(e)
         except Exception as e:
-            log_handler.logError(sys.exc_info(), e)
+            logger.exception(e)
 
-    def start(self,*args, **kwargs):
+    def start(self,rate_hz=10,test_loop_count=0,*args, **kwargs):
         try:
-            pass
+            self.on=True
+            # run threaded parts
+            for en in self.parts:
+                if en["thread"]:en["thread"].start()
+                       
+            while self.on:
+                start_time=time.time()
+                self.update_parts()
+                count +=1
+                if test_loop_count and test_loop_count<count:
+                    self.on=False
+                sleep_time= (1.0/rate_hz)-(time.time()-start_time)
+                if sleep_time > 0.0:
+                    time.sleep(sleep_time)
+                  
         except Exception as e:
-            log_handler.logError(sys.exc_info(), e)
+            logger.exception(e)
+        finally:
+            self.shutdown()
 
     def update_parts(self,*args, **kwargs):
         try:
             pass
         except Exception as e:
-            log_handler.logError(sys.exc_info(), e)
+            logger.exception(e)
 
     def shutdown(self,*args, **kwargs):
         try:
-            pass
+            logger.info("Shutting down vehicle")
+            for entry in self.parts:
+                entry["part"].shutdown()
         except Exception as e:
-            log_handler.logError(sys.exc_info(), e)
+            logger.exception(e)
