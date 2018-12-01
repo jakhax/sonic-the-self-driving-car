@@ -1,6 +1,6 @@
 import abc
 
-class AbstractCarPartHandler(abc):
+class AbstractCarPartHandler(abc.ABC):
     '''
     Methods that logical parts of the car should have
     '''
