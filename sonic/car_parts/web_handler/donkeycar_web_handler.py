@@ -9,7 +9,7 @@ import tornado.ioloop
 import tornado.web
 import tornado.gen
 
-from donkeycar_utility_library import util
+import donkeycar_utility_library as util
 
 
 class LocalWebController(tornado.web.Application):
