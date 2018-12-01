@@ -1,4 +1,5 @@
 import abc
+import time
 from threading import Thread
 from donkeycar_memory_handler import Memory
 from log_handler import LogHandler
@@ -61,6 +62,9 @@ class VehicleHandler(AbstractVehicleHandler):
                 t=Thread(target=part.update,args=())
                 t.daemon=True
                 e["thread"]=t
+                print("threaded")
+            else:
+                e["thread"]=None
             self.parts.append(e)
         except Exception as e:
             logger.exception(e)
@@ -70,8 +74,8 @@ class VehicleHandler(AbstractVehicleHandler):
             self.on=True
             # run threaded parts
             for en in self.parts:
-                if en["thread"]:en["thread"].start()
-                       
+                if en["thread"]:en.get("thread").start()
+            count=0          
             while self.on:
                 start_time=time.time()
                 self.update_parts()
@@ -95,8 +99,8 @@ class VehicleHandler(AbstractVehicleHandler):
                     run=self.mem.get([en.get("run_condition")])[0]
                 if run:
                     p=en["part"]
-                    inputs=self.mem.get(entry["inputs"])
-                    outputs=p.run_threaded(*inputs) if en["threaded"] else p.run(*inputs)
+                    inputs=self.mem.get(en["inputs"])
+                    outputs=p.run_threaded(*inputs) if en["thread"] else p.run(*inputs)
                     if outputs is not None:
                         self.mem.put(en["outputs"],outputs)
         except Exception as e:
