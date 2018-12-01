@@ -4,7 +4,7 @@ from car_parts.transform import Lambda,PIDController
 from car_parts.camera_handler.picamera_handler import CarPiCamera
 from car_parts.web_handler.donkeycar_web_handler import LocalWebController
 from controllers.ps3_controller.controller import PS3JoystickController
-from car_parts.actuators import PWM_MG996R_Steering
+from car_parts.actuators import PWM_MG996R_Steering,PWM_L298N_Throttle
 from vehicle_handler import VehicleHandler
 import os
 import config as cfg
@@ -23,6 +23,7 @@ def drive(cfg):
 		auto_record_on_throttle=cfg.AUTO_RECORD_ON_THROTTLE
 	)
 	pwm_mg996r_steering=PWM_MG996R_Steering()
+	pwm_l298n_throttle=PWM_L298N_Throttle()
 
 	v.add(ps3_ctr,
 		inputs=['cam/image_array'],
@@ -54,6 +55,10 @@ def drive(cfg):
 	v.add(
 		pwm_mg996r_steering,
 		inputs=['angle'],
+	)
+	v.add(
+		pwm_l298n_throttle,
+		inputs=['throttle'],
 	)
 	inputs = ['cam/image_array', 'user/angle', 'user/throttle', 'user/mode', 'timestamp']
 	types = ['image_array', 'float', 'float',  'str', 'str']
