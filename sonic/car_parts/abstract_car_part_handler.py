@@ -1,6 +1,6 @@
 import abc
 
-class AbstractCarPartHandler(abc):
+class AbstractCarPartHandler(abc.ABC):
     '''
     Methods that logical parts of the car should have
     '''
@@ -17,4 +17,7 @@ class AbstractCarPartHandler(abc):
         pass
     @abc.abstractmethod
     def run_threaded(self,*args, **kwargs):
+        pass
+    @abc.abstractmethod
+    def shutdown(self,*args, **kwargs):
         pass

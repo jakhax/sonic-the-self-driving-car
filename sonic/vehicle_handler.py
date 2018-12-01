@@ -1,6 +1,8 @@
 import abc
+import time
 from threading import Thread
-from sonic.log_handler import LogHandler
+from donkeycar_memory_handler import Memory
+from log_handler import LogHandler
 
 logger = LogHandler().get_logger(__name__)
 
@@ -27,8 +29,9 @@ class AbstractVehicleHandler(abc.ABC):
 
 class VehicleHandler(AbstractVehicleHandler):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self,memory=None, *args, **kwargs):
         try:
+            self.mem=Memory() if not memory else memory
             self.on=True
             self.parts=[]
         except Exception as e:
@@ -59,6 +62,9 @@ class VehicleHandler(AbstractVehicleHandler):
                 t=Thread(target=part.update,args=())
                 t.daemon=True
                 e["thread"]=t
+                print("threaded")
+            else:
+                e["thread"]=None
             self.parts.append(e)
         except Exception as e:
             logger.exception(e)
@@ -68,8 +74,8 @@ class VehicleHandler(AbstractVehicleHandler):
             self.on=True
             # run threaded parts
             for en in self.parts:
-                if en["thread"]:en["thread"].start()
-                       
+                if en["thread"]:en.get("thread").start()
+            count=0          
             while self.on:
                 start_time=time.time()
                 self.update_parts()
@@ -87,7 +93,16 @@ class VehicleHandler(AbstractVehicleHandler):
 
     def update_parts(self,*args, **kwargs):
         try:
-            pass
+            for en in self.parts:
+                run=True
+                if en.get("run_condition"):
+                    run=self.mem.get([en.get("run_condition")])[0]
+                if run:
+                    p=en["part"]
+                    inputs=self.mem.get(en["inputs"])
+                    outputs=p.run_threaded(*inputs) if en["thread"] else p.run(*inputs)
+                    if outputs is not None:
+                        self.mem.put(en["outputs"],outputs)
         except Exception as e:
             logger.exception(e)
 
