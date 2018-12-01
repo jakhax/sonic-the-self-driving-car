@@ -1,16 +1,19 @@
 import datetime
 from sonic.car_parts.abstract_car_part_handler import AbstractCarPartHandler
 
-class Timestamp():
+class Timestamp(AbstractCarPartHandler):
 
     def start(self,*args, **kwargs):
-        pass
+        return
 
     def update(self,*args, **kwargs):
-        pass
+        return
 
     def run_threaded(self,*args, **kwargs):
-        pass
+        return
 
     def run(self,*args, **kwargs):
         return str(datetime.datetime.utcnow())
+
+    def shutdown(self,*args, **kwargs):
+        return

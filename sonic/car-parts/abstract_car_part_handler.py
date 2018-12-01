@@ -18,3 +18,6 @@ class AbstractCarPartHandler(abc):
     @abc.abstractmethod
     def run_threaded(self,*args, **kwargs):
         pass
+    @abc.abstractmethod
+    def shutdown(self,*args, **kwargs):
+        pass
