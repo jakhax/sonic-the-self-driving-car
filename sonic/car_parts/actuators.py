@@ -18,7 +18,8 @@ class PWM_MG996R_Steering:
         self.pin.start(float((MAX_DT+MIN_DT)/2))
         
     def set_pulse(self,a):
-        if not self.LEFT_ANGLE<=a<=self.RIGHT_ANGLE:self.pin.ChangeDutyCycle(((self.MAX_DT+self.MIN_DT)/2))
+        print(a)
+        if not a or not self.LEFT_ANGLE<=a<=self.RIGHT_ANGLE:self.pin.ChangeDutyCycle(((self.MAX_DT+self.MIN_DT)/2))
         elif a == 0:
             self.pin.ChangeDutyCycle(float((self.MAX_DT+self.MIN_DT)/2))
         elif a<0:
