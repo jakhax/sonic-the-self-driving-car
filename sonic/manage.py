@@ -47,7 +47,7 @@ def drive(cfg):
 			return pilot_angle, pilot_throttle
 
 	drive_mode_part = Lambda(drive_mode)
-	V.add(drive_mode_part,
+	v.add(drive_mode_part,
 			inputs=['user/mode', 'user/angle', 'user/throttle',
 					'pilot/angle', 'pilot/throttle'],
 			outputs=['angle', 'throttle'])
@@ -63,5 +63,5 @@ def drive(cfg):
 			rate_hz=cfg.DRIVE_LOOP_HZ,
 			max_loop_count=cfg.MAX_LOOPS
 			)
-	drive(cfg)
+drive(cfg)
 
