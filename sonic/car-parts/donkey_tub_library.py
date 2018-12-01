@@ -17,10 +17,10 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
-from donkeycar_utility_library import util
-from ..log import get_logger
+from sonic.donkeycar_utility_library import util
+from sonic.log_handler import LogHandler
 
-logger = get_logger(__name__)
+logger = LogHandler().get_logger(__name__)
 
 
 class Tub(object):
