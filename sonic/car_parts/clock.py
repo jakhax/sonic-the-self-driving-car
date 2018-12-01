@@ -1,5 +1,5 @@
 import datetime
-from sonic.car_parts.abstract_car_part_handler import AbstractCarPartHandler
+from car_parts.abstract_car_part_handler import AbstractCarPartHandler
 
 class Timestamp(AbstractCarPartHandler):
 

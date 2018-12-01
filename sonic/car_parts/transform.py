@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import time
-from sonic.car_parts.abstract_car_part_handler import AbstractCarPartHandler
-from sonic.log_handler import LogHandler
+from car_parts.abstract_car_part_handler import AbstractCarPartHandler
+from log_handler import LogHandler
 
 logger = LogHandler().get_logger(__name__)
 

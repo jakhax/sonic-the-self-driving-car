@@ -1,7 +1,7 @@
 import abc
 from threading import Thread
-from sonic.log_handler import LogHandler
-from sonic.donkey_car_memmory_handler import Memory
+from donkeycar_memory_handler import Memory
+from log_handler import LogHandler
 
 logger = LogHandler().get_logger(__name__)
 

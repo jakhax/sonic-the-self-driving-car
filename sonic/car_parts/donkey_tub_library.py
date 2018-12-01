@@ -17,8 +17,9 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
-from sonic.donkeycar_utility_library import util
-from sonic.log_handler import LogHandler
+import donkeycar_utility_library as util
+
+from log_handler import LogHandler
 
 logger = LogHandler().get_logger(__name__)
 
