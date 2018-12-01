@@ -34,6 +34,23 @@ def drive(cfg):
 			outputs=["user/angle","user/throttle","user/mode","recording"],
 			threaded=True)
 	v.add(cam, outputs=['cam/image_array'], threaded=True)
+	def drive_mode(mode,
+					user_angle, user_throttle,
+					pilot_angle, pilot_throttle):
+		if mode == 'user':
+			return user_angle, user_throttle
+
+		elif mode == 'local_angle':
+			return pilot_angle, user_throttle
+
+		else:
+			return pilot_angle, pilot_throttle
+
+	drive_mode_part = Lambda(drive_mode)
+	V.add(drive_mode_part,
+			inputs=['user/mode', 'user/angle', 'user/throttle',
+					'pilot/angle', 'pilot/throttle'],
+			outputs=['angle', 'throttle'])
 	v.add(
 		pwm_mg996r_steering,
 		inputs=['angle'],
@@ -46,5 +63,5 @@ def drive(cfg):
 			rate_hz=cfg.DRIVE_LOOP_HZ,
 			max_loop_count=cfg.MAX_LOOPS
 			)
-drive(cfg)
+	drive(cfg)
 
