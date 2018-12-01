@@ -1,6 +1,7 @@
 import abc
 from threading import Thread
 from sonic.log_handler import LogHandler
+from sonic.donkey_car_memmory_handler import Memory
 
 logger = LogHandler().get_logger(__name__)
 
@@ -27,8 +28,9 @@ class AbstractVehicleHandler(abc.ABC):
 
 class VehicleHandler(AbstractVehicleHandler):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self,memory=None, *args, **kwargs):
         try:
+            self.mem=Memory() if not memory else memory
             self.on=True
             self.parts=[]
         except Exception as e:
@@ -87,7 +89,16 @@ class VehicleHandler(AbstractVehicleHandler):
 
     def update_parts(self,*args, **kwargs):
         try:
-            pass
+            for en in self.parts:
+                run=True
+                if en.get("run_condition"):
+                    run=self.mem.get([en.get("run_condition")])[0]
+                if run:
+                    p=en["part"]
+                    inputs=self.mem.get(entry["inputs"])
+                    outputs=p.run_threaded(*inputs) if en["threaded"] else p.run(*inputs)
+                    if outputs is not None:
+                        self.mem.put(en["outputs"],outputs)
         except Exception as e:
             logger.exception(e)
 
