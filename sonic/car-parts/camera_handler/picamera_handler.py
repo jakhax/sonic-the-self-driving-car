@@ -1,4 +1,7 @@
 import time
+import numpy as np
+from PIL import Image
+import glob
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from sonic.car_parts.abstract_car_part_handler import AbstractCarPartHandler
@@ -34,3 +37,10 @@ class CarPiCamera(AbstractCarPartHandler):
     def run_threaded(self,*args, **kwargs):
         return self.frame
 
+    def shutdown(self):
+        #stop the thread
+        self.on=False
+        time.sleep(5)
+        self.stream.close()
+        self.raw_cap.close()
+        self.camera.close()
