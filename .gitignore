@@ -1,6 +1,7 @@
 env/*
 data/*
 dist/*
+sonic/tub/
 
 *.pyc
 .ipynb_checkpoints
