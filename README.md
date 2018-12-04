@@ -1,6 +1,10 @@
 # Sonic the self driving car
 - Building a raspberry pi self driving rc car, may take a while, but i hope to learn a lot of stuff on the way.
 
+**                         |  **
+:-------------------------:|:-------------------------:
+<img src="https://github.com/jakhax/sonic-the-self-driving-car/blob/master/media/C2.JPG"  alt="Image of sonic" width="500" height="300">  |  <img src="https://github.com/jakhax/sonic-the-self-driving-car/blob/master/media/c1.jpg" alt="Image of sonic" width="500" height="300">
+
 ## Work Done this weekend
 - [x] Create a handler to control sonic with a PS3 bluetooth controller(see donkey car ps3 controller).
 - [x] Use tornado to create a controller stream for sonic.
