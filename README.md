@@ -7,10 +7,12 @@
 - [x] Use tornado to create a controller stream for sonic.
 - [x] Stream video from sonic's pi cam to the web interface.
 - [x] create PWM actuators for controlling sonic i.e steering the MG996R servo motor and throttling the DC motor via L298N motor board with speed control.
-- [x] Succesfully drive sonic via the web interface with the pi cam, fucking awesome.
+- [x] Succesfully drive sonic via the web interface with the pi cam.
+- [x] Self driving stub and CNN model.
 
-## Next-time: start working on the self drving part
-- [ ] Lane detection with a CNN.
+## Future works
+- [ ] House cleaning and committing lots of changes.
+- [ ] Nvidia's research paper on self driving cars.
 
 ## Usage
 ### Parts
@@ -35,5 +37,8 @@
 - Right now you can contribute by giving me ideas on how you think the neural network for the self driving car should be designed & necessary hardware too.
 
 ## Resources 
-- The [donkey car](http://docs.donkeycar.com) project has been really helpful to me so far cant say more,**Note** that though most of the components design is similar, this project is a much more simpler version of the donkey car, not a donkey car project.
-
+- The [donkey car](http://docs.donkeycar.com) project has been really helpful to me, **Note**, though most of the design of this project is similar, It's not a donkey car project.
+- Nvidia End to End learning for self driving cars [https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)
+- [https://towardsdatascience.com/deep-learning-for-self-driving-cars-7f198ef4cfa2](https://towardsdatascience.com/deep-learning-for-self-driving-cars-7f198ef4cfa2)
+- Comma AI research [https://github.com/commaai/research](https://github.com/commaai/research)
+- [https://github.com/cyanamous/Self-Driving-Car-](https://github.com/cyanamous/Self-Driving-Car-)
